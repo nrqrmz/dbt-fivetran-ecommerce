@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: rails_app
+    description: Raw data from the Rails e-commerce application synced via Fivetran
+    database: hip-beaker-406013
+    schema: fivetran_ecommerce_2182_public
+    tables:
+      - name: users
+        description: Customer accounts (Devise-managed)
+        columns:
+          - name: id
+            description: Primary key
+          - name: email
+            description: Customer email address
+          - name: name
+            description: Customer display name
+          - name: country
+            description: Customer country for geographic analytics
+          - name: created_at
+            description: Account creation timestamp
+          - name: updated_at
+            description: Last account update timestamp
+
+      - name: products
+        description: Products available for purchase
+        columns:
+          - name: id
+            description: Primary key
+          - name: name
+            description: Product name
+          - name: category
+            description: Product category (Electronics, Clothing, Home, Sports, Books)
+          - name: price_cents
+            description: Price in cents (integer to avoid floating point issues)
+          - name: created_at
+            description: Product creation timestamp
+
+      - name: orders
+        description: Shopping cart / checkout transactions
+        columns:
+          - name: id
+            description: Primary key
+          - name: user_id
+            description: Foreign key to users
+          - name: status
+            description: Order status - cart (active) or completed (checked out)
+          - name: created_at
+            description: Order creation timestamp
+          - name: updated_at
+            description: Last update (used as purchase timestamp when completed)
+
+      - name: order_items
+        description: Individual line items within an order
+        columns:
+          - name: id
+            description: Primary key
+          - name: order_id
+            description: Foreign key to orders
+          - name: product_id
+            description: Foreign key to products
+          - name: quantity
+            description: Number of units purchased
+          - name: unit_price_cents
+            description: Snapshot of product price at time of purchase
+          - name: created_at
+            description: Item added timestamp
