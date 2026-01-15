@@ -1,0 +1,11 @@
+jobs:
+  - name: run_after_sync
+    schedule:
+      type: integrated
+      integrations:
+        - fivetran_ecommerce_2182
+    steps:
+      - name: run models
+        command: dbt run
+      - name: test models
+        command: dbt test
