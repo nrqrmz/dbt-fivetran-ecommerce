@@ -4,7 +4,7 @@ sources:
   - name: rails_app
     description: Raw data from the Rails e-commerce application synced via Fivetran
     database: hip-beaker-406013
-    schema: fivetran_ecommerce_2182_public
+    schema: public
     tables:
       - name: users
         description: Customer accounts (Devise-managed)
